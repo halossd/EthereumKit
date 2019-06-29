@@ -2,7 +2,7 @@ import CryptoSwift
 import CryptoEthereumSwift
 
 /// Helper class for cryptographic algorithms.
-public final class Crypto {
+public final class ETHCrypto {
     
     /// Produces "hash-based message authentication code" that can be used to verify data integrity and authenticity.
     /// Hash is 512-bit length (64 bytes)

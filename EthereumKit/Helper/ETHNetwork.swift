@@ -1,4 +1,4 @@
-public enum Network {
+public enum ETHNetwork {
     case mainnet
     case ropsten
     case kovan
@@ -70,7 +70,7 @@ public enum Network {
             return "Ropsten"
         case .kovan:
             return "Kovan"
-        case .private(_, _):
+        case .private:
             return "Privatenet"
         }
     }
@@ -89,8 +89,8 @@ public enum Network {
     }
 }
 
-extension Network: Equatable {
-    public static func == (lhs: Network, rhs: Network) -> Bool {
+extension ETHNetwork: Equatable {
+    public static func == (lhs: ETHNetwork, rhs: ETHNetwork) -> Bool {
         switch (lhs, rhs) {
         case (.mainnet, .mainnet), (.ropsten, .ropsten), (.kovan, .kovan):
             return true

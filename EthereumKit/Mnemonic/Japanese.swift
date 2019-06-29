@@ -1,4 +1,4 @@
-extension WordList {
+extension ETHWordList {
     var japaneseWords: [String] {
         let words =
         """

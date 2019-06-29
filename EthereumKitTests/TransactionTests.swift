@@ -4,7 +4,7 @@ import XCTest
 final class TransactionTests: XCTestCase {
     
     func testTransaction() {
-        let transaction = Transaction(
+        let transaction = ETHTransaction(
             blockHash: "hash",
             blockNumber: "100",
             hash: "hashhash",

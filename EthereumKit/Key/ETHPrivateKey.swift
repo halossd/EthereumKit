@@ -1,5 +1,5 @@
 /// Represents a private key
-public struct PrivateKey {
+public struct ETHPrivateKey {
     
     // Private key in data format
     public let raw: Data
@@ -9,8 +9,8 @@ public struct PrivateKey {
     }
     
     /// Publish key derived from private key
-    public var publicKey: PublicKey {
-        return PublicKey(privateKey: self)
+    public var publicKey: ETHPublicKey {
+        return ETHPublicKey(privateKey: self)
     }
     
     /// Sign signs provided hash data with private key by Elliptic Curve, Secp256k1
@@ -19,6 +19,6 @@ public struct PrivateKey {
     /// - Returns: signiture in data format
     /// - Throws: .cryptoError(.failedToSign) when failed to sign
     public func sign(hash: Data) throws -> Data {
-        return try Crypto.sign(hash, privateKey: raw)
+        return try ETHCrypto.sign(hash, privateKey: raw)
     }
 }

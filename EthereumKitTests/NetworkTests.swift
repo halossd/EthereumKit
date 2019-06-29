@@ -4,7 +4,7 @@ import XCTest
 final class NetworkTests: XCTestCase {
     
     func testMainnet() {
-        let network = Network.mainnet
+        let network = ETHNetwork.mainnet
         XCTAssert(network.chainID == 1)
         XCTAssert(network.coinType == 60)
         XCTAssert(network.privateKeyPrefix == 0x0488ade4)
@@ -12,7 +12,7 @@ final class NetworkTests: XCTestCase {
     }
     
     func testRopsten() {
-        let network = Network.ropsten
+        let network = ETHNetwork.ropsten
         XCTAssert(network.chainID == 3)
         XCTAssert(network.coinType == 1)
         XCTAssert(network.privateKeyPrefix == 0x04358394)
@@ -20,7 +20,7 @@ final class NetworkTests: XCTestCase {
     }
     
     func testKovan() {
-        let network = Network.kovan
+        let network = ETHNetwork.kovan
         XCTAssert(network.chainID == 42)
         XCTAssert(network.coinType == 1)
         XCTAssert(network.privateKeyPrefix == 0x04358394)
@@ -28,7 +28,7 @@ final class NetworkTests: XCTestCase {
     }
     
     func testPrivateNetTestUse() {
-        let network = Network.private(chainID: 100, testUse: true)
+        let network = ETHNetwork.private(chainID: 100, testUse: true)
         XCTAssert(network.chainID == 100)
         XCTAssert(network.coinType == 1)
         XCTAssert(network.privateKeyPrefix == 0x04358394)
@@ -36,7 +36,7 @@ final class NetworkTests: XCTestCase {
     }
     
     func testPrivateNet() {
-        let network = Network.private(chainID: 100, testUse: false)
+        let network = ETHNetwork.private(chainID: 100, testUse: false)
         XCTAssert(network.chainID == 100)
         XCTAssert(network.coinType == 60)
         XCTAssert(network.privateKeyPrefix == 0x0488ade4)
@@ -44,20 +44,20 @@ final class NetworkTests: XCTestCase {
     }
     
     func testNetworkInitializer() {
-        let mainNetwork = Network(name: "main")
+        let mainNetwork = ETHNetwork(name: "main")
         XCTAssertNotNil(mainNetwork)
-        XCTAssertEqual(mainNetwork, Network.mainnet)
+        XCTAssertEqual(mainNetwork, ETHNetwork.mainnet)
         
-        let ropstenNetwork = Network(name: "ropsten")
+        let ropstenNetwork = ETHNetwork(name: "ropsten")
         XCTAssertNotNil(ropstenNetwork)
-        XCTAssertEqual(ropstenNetwork, Network.ropsten)
+        XCTAssertEqual(ropstenNetwork, ETHNetwork.ropsten)
         
-        let kovanNetwork = Network(name: "kovan")
+        let kovanNetwork = ETHNetwork(name: "kovan")
         XCTAssertNotNil(kovanNetwork)
-        XCTAssertEqual(kovanNetwork, Network.kovan)
+        XCTAssertEqual(kovanNetwork, ETHNetwork.kovan)
         
-        let privateNetwork = Network(name: "private", chainID: 1, testUse: false)
+        let privateNetwork = ETHNetwork(name: "private", chainID: 1, testUse: false)
         XCTAssertNotNil(privateNetwork)
-        XCTAssertEqual(privateNetwork, Network.private(chainID: 1, testUse: false))
+        XCTAssertEqual(privateNetwork, ETHNetwork.private(chainID: 1, testUse: false))
     }
 }

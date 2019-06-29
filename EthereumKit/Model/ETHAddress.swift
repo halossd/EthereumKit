@@ -1,5 +1,5 @@
 /// Represents an address
-public struct Address {
+public struct ETHAddress {
     
     /// Address in data format
     public let data: Data
@@ -13,7 +13,7 @@ public struct Address {
     }
 }
 
-extension Address {
+extension ETHAddress {
     public init(data: Data) {
         self.data = data
         self.string = "0x" + EIP55.encode(data)
@@ -25,7 +25,7 @@ extension Address {
     }
 }
 
-extension Address: Codable {
+extension ETHAddress: Codable {
     private enum CodingKeys: String, CodingKey {
         case data
         case string

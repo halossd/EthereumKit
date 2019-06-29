@@ -1,5 +1,5 @@
 /// Represents transaction
-public struct Transaction {
+public struct ETHTransaction {
     
     /// Blockhash of the block which includes this tx
     public let blockHash: String
@@ -86,7 +86,7 @@ public struct Transaction {
     }
 }
 
-extension Transaction: Codable {
+extension ETHTransaction: Codable {
     private enum CodingKeys: String, CodingKey {
         case blockHash
         case blockNumber
@@ -157,9 +157,9 @@ extension Transaction: Codable {
 public struct Transactions {
     
     // Transactions
-    public let elements: [Transaction]
+    public let elements: [ETHTransaction]
     
-    public init(elements: [Transaction]) {
+    public init(elements: [ETHTransaction]) {
         self.elements = elements
     }
 }
@@ -171,7 +171,7 @@ extension Transactions: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        elements = try container.decode([Transaction].self, forKey: .elements)
+        elements = try container.decode([ETHTransaction].self, forKey: .elements)
     }
     
     public func encode(to encoder: Encoder) throws {

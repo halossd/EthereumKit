@@ -9,10 +9,10 @@ class CryptoTests: XCTestCase {
 }
 
 extension CryptoTests {
-    private func privateKey() -> HDPrivateKey {
-        let words = Mnemonic.create()
-        let seed = try! Mnemonic.createSeed(mnemonic: words)
-        return HDPrivateKey(seed: seed, network: .mainnet)
+    private func privateKey() -> ETHHDPrivateKey {
+        let words = ETHMnemonic.create()
+        let seed = try! ETHMnemonic.createSeed(mnemonic: words)
+        return ETHHDPrivateKey(seed: seed, network: .mainnet)
     }
 
     private func assertValidatesSignature(compressed: Bool, line: UInt = #line) {

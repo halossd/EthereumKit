@@ -6,7 +6,7 @@ final class RawTransactionTests: XCTestCase {
     func testRawTransaction() {
         let rawTransaction = RawTransaction(
             value: Wei(100),
-            to: Address(string: "0x88b44BC83add758A3642130619D61682282850Df"),
+            to: ETHAddress(string: "0x88b44BC83add758A3642130619D61682282850Df"),
             gasPrice: 10,
             gasLimit: 100,
             nonce: 1,

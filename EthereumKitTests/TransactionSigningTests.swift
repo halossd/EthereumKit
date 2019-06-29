@@ -14,7 +14,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 3)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "db173e58671248b48d2494b63a99008be473268581ca1eb78ed0b92e03b13bbc")
         )
@@ -46,7 +46,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 3)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "db173e58671248b48d2494b63a99008be473268581ca1eb78ed0b92e03b13bbc")
         )
@@ -78,7 +78,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 3)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "db173e58671248b48d2494b63a99008be473268581ca1eb78ed0b92e03b13bbc")
         )
@@ -110,7 +110,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 1)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "db173e58671248b48d2494b63a99008be473268581ca1eb78ed0b92e03b13bbc")
         )
@@ -142,7 +142,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 1)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "db173e58671248b48d2494b63a99008be473268581ca1eb78ed0b92e03b13bbc")
         )
@@ -174,7 +174,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 1)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "db173e58671248b48d2494b63a99008be473268581ca1eb78ed0b92e03b13bbc")
         )
@@ -206,7 +206,7 @@ class TransactionSigningTests: XCTestCase {
         )
         
         let signer = EIP155Signer(chainID: 3)
-        let signiture = try! Crypto.sign(
+        let signiture = try! ETHCrypto.sign(
             try! signer.hash(rawTransaction: rawTransaction),
             privateKey: Data(hex: "0ac03c260512582a94295185cfa899e0cb8067a89a61b7b5435ec524c088203c")
         )
@@ -229,9 +229,9 @@ class TransactionSigningTests: XCTestCase {
     }
     
     func testTransactionSigningWithWallet() {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let wallet = try! Wallet(seed: seed, network: .ropsten, debugPrints: false)
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let wallet = try! ETHWallet(seed: seed, network: .ropsten, debugPrints: false)
         
         // PrivateKey: - 0ac03c260512582a94295185cfa899e0cb8067a89a61b7b5435ec524c088203c
         
@@ -251,9 +251,9 @@ class TransactionSigningTests: XCTestCase {
     }
     
     func testTransactionSigningWithWallet1() {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let wallet = try! Wallet(seed: seed, network: .ropsten, debugPrints: false)
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let wallet = try! ETHWallet(seed: seed, network: .ropsten, debugPrints: false)
         
         // PrivateKey: - 0ac03c260512582a94295185cfa899e0cb8067a89a61b7b5435ec524c088203c
         
@@ -273,9 +273,9 @@ class TransactionSigningTests: XCTestCase {
     }
     
     func testTransactionSigningWithWallet2() {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let wallet = try! Wallet(seed: seed, network: .ropsten, debugPrints: false)
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let wallet = try! ETHWallet(seed: seed, network: .ropsten, debugPrints: false)
         
         // PrivateKey: - 0ac03c260512582a94295185cfa899e0cb8067a89a61b7b5435ec524c088203c
         
@@ -295,9 +295,9 @@ class TransactionSigningTests: XCTestCase {
     }
     
     func testTransactionSigningWithWallet3() {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let wallet = try! Wallet(seed: seed, network: .ropsten, debugPrints: false)
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let wallet = try! ETHWallet(seed: seed, network: .ropsten, debugPrints: false)
         
         let rawTransaction = RawTransaction(
             wei: "100000000000000000",
@@ -315,9 +315,9 @@ class TransactionSigningTests: XCTestCase {
     }
     
     func testTransactionSigningWithWallet4() {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let wallet = try! Wallet(seed: seed, network: .ropsten, debugPrints: false)
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let wallet = try! ETHWallet(seed: seed, network: .ropsten, debugPrints: false)
         
         let rawTransaction = RawTransaction(
             wei: "1000000000000000000",

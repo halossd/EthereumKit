@@ -3,16 +3,16 @@ import XCTest
 
 final class HDPublicKeyTests: XCTestCase {
     
-    private var testnetMasterPrivateKey: HDPrivateKey = {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        return HDPrivateKey(seed: seed, network: .ropsten)
+    private var testnetMasterPrivateKey: ETHHDPrivateKey = {
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        return ETHHDPrivateKey(seed: seed, network: .ropsten)
     }()
     
-    private var mainnetMasterPrivateKey: HDPrivateKey = {
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        return HDPrivateKey(seed: seed, network: .mainnet)
+    private var mainnetMasterPrivateKey: ETHHDPrivateKey = {
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        return ETHHDPrivateKey(seed: seed, network: .mainnet)
     }()
     
     // BIP32 path m/44'/1'/0'/0

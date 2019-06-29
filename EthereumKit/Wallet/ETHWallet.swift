@@ -1,24 +1,24 @@
 /// Wallet handles all the logic necessary for storing keys
-public final class Wallet {
+public final class ETHWallet {
     
     /// Network which this wallet is connecting to
     /// Basiclly Mainnet or Ropsten
-    private let network: Network
+    private let network: ETHNetwork
     
     /// Private key which this wallet mainly use.
     /// This is either provided by user or generated from HD wallet.
     /// for HD wallet, path is m/44'/coin_type'/0'/0
-    private let key: PrivateKey
+    private let key: ETHPrivateKey
     
     /// Represents a flag whether to print a debug log.
     private let debugPrints: Bool
     
-    public init(seed: Data, network: Network, debugPrints: Bool) throws {
+    public init(seed: Data, network: ETHNetwork, debugPrints: Bool) throws {
         self.network = network
         self.debugPrints = debugPrints
         
         // m/44'/coin_type'/0'/external
-        let externalPrivateKey = try HDPrivateKey(seed: seed, network: network)
+        let externalPrivateKey = try ETHHDPrivateKey(seed: seed, network: network)
             .derived(at: 44, hardens: true)
             .derived(at: network.coinType, hardens: true)
             .derived(at: 0, hardens: true)
@@ -33,9 +33,9 @@ public final class Wallet {
         }
     }
     
-    public init(network: Network, privateKey: String, debugPrints: Bool) {
+    public init(network: ETHNetwork, privateKey: String, debugPrints: Bool) {
         self.network = network
-        self.key = PrivateKey(raw: Data(hex: privateKey))
+        self.key = ETHPrivateKey(raw: Data(hex: privateKey))
         self.debugPrints = debugPrints
         
         if debugPrints {
@@ -51,7 +51,7 @@ public final class Wallet {
         let prefix = "\u{19}Ethereum Signed Message:\n"
         let messageData = Data(hex: hex.stripHexPrefix())
         let prefixData = (prefix + String(messageData.count)).data(using: .ascii)!
-        return Crypto.hashSHA3_256(prefixData + messageData)
+        return ETHCrypto.hashSHA3_256(prefixData + messageData)
     }
     
     private func printDebugInformation() {
@@ -66,9 +66,9 @@ public final class Wallet {
     }
 }
 
-// MARK :- Keys
+// MARK: - Keys
 
-extension Wallet {
+extension ETHWallet {
     
     /// Generates address from main private key.
     ///
@@ -94,7 +94,7 @@ extension Wallet {
 
 // MARK: - Sign Transaction
 
-extension Wallet {
+extension ETHWallet {
     
     /// Sign signs rlp encoding hash of specified raw transaction
     ///
@@ -117,9 +117,9 @@ extension Wallet {
     }
 }
 
-// MARK :- Sign message
+// MARK: - Sign message
 
-extension Wallet {
+extension ETHWallet {
     
     /// Sign a provided hex
     ///
@@ -127,7 +127,7 @@ extension Wallet {
     /// - Returns: signature in string format
     /// - Throws: EthereumKitError.failedToEncode when failed to encode
     public func sign(hex: String) throws -> String {
-        let hash = Crypto.hashSHA3_256(Data(hex: hex.stripHexPrefix()))
+        let hash = ETHCrypto.hashSHA3_256(Data(hex: hex.stripHexPrefix()))
         return try key.sign(hash: hash).toHexString()
     }
     
@@ -141,9 +141,9 @@ extension Wallet {
     }
 }
 
-// MARK :- Personal-sign message
+// MARK: - Personal-sign message
 
-extension Wallet {
+extension ETHWallet {
     
     /// Sign calculates an Ethereum ECDSA signature for: keccack256("\x19Ethereum Signed Message:\n" + len(message) + message))
     /// See also: https://github.com/ethereum/go-ethereum/wiki/Management-APIs#personal_sign
@@ -182,9 +182,9 @@ extension Wallet {
     }
 }
 
-// MARK :- Validate signature
+// MARK: - Validate signature
 
-extension Wallet {
+extension ETHWallet {
     
     /// Verify a personal_signed signature
     ///
@@ -214,11 +214,11 @@ extension Wallet {
     ///   - compressed: whether a public key is compressed
     /// - Returns: whether a signature is valid or not
     public func verify(normalSigned signature: String, message: String, compressed: Bool = false) -> Bool {
-        let hash = Crypto.hashSHA3_256(Data(hex: message.toHexString().stripHexPrefix()))
+        let hash = ETHCrypto.hashSHA3_256(Data(hex: message.toHexString().stripHexPrefix()))
         return verifySignature(signature: Data(hex: signature), hash: hash, compressed: compressed)
     }
     
     private func verifySignature(signature: Data, hash: Data, compressed: Bool) -> Bool {
-        return Crypto.isValid(signature: signature, of: hash, publicKey: publicKey(), compressed: compressed)
+        return ETHCrypto.isValid(signature: signature, of: hash, publicKey: publicKey(), compressed: compressed)
     }
 }

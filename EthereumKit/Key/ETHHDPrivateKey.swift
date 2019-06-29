@@ -1,14 +1,14 @@
 import CryptoEthereumSwift
 
-public struct HDPrivateKey {
+public struct ETHHDPrivateKey {
     public let raw: Data
     public let chainCode: Data
     private let depth: UInt8
     private let fingerprint: UInt32
     private let childIndex: UInt32
-    private let network: Network
+    private let network: ETHNetwork
     
-    public init(seed: Data, network: Network) {
+    public init(seed: Data, network: ETHNetwork) {
         let output = Crypto.HMACSHA512(key: "Bitcoin seed".data(using: .ascii)!, data: seed)
         self.raw = output[0..<32]
         self.chainCode = output[32..<64]
@@ -18,7 +18,7 @@ public struct HDPrivateKey {
         self.network = network
     }
     
-    private init(hdPrivateKey: Data, chainCode: Data, depth: UInt8, fingerprint: UInt32, index: UInt32, network: Network) {
+    private init(hdPrivateKey: Data, chainCode: Data, depth: UInt8, fingerprint: UInt32, index: UInt32, network: ETHNetwork) {
         self.raw = hdPrivateKey
         self.chainCode = chainCode
         self.depth = depth
@@ -27,12 +27,12 @@ public struct HDPrivateKey {
         self.network = network
     }
     
-    public func privateKey() -> PrivateKey {
-        return PrivateKey(raw: Data(hex: "0x") + raw)
+    public func privateKey() -> ETHPrivateKey {
+        return ETHPrivateKey(raw: Data(hex: "0x") + raw)
     }
     
-    public func hdPublicKey() -> HDPublicKey {
-        return HDPublicKey(hdPrivateKey: self, chainCode: chainCode, network: network, depth: depth, fingerprint: fingerprint, childIndex: childIndex)
+    public func hdPublicKey() -> ETHHDPublicKey {
+        return ETHHDPublicKey(hdPrivateKey: self, chainCode: chainCode, network: network, depth: depth, fingerprint: fingerprint, childIndex: childIndex)
     }
     
     public func extended() -> String {
@@ -45,10 +45,10 @@ public struct HDPrivateKey {
         extendedPrivateKeyData += UInt8(0)
         extendedPrivateKeyData += raw
         let checksum = Crypto.doubleSHA256(extendedPrivateKeyData).prefix(4)
-        return Base58.encode(extendedPrivateKeyData + checksum)
+        return ETHBase58.encode(extendedPrivateKeyData + checksum)
     }
     
-    internal func derived(at index: UInt32, hardens: Bool = false) throws -> HDPrivateKey {
+    internal func derived(at index: UInt32, hardens: Bool = false) throws -> ETHHDPrivateKey {
         guard (0x80000000 & index) == 0 else {
             fatalError("Invalid index \(index)")
         }
@@ -66,7 +66,7 @@ public struct HDPrivateKey {
             throw EthereumKitError.cryptoError(.keyDerivateionFailed)
         }
         
-        return HDPrivateKey(
+        return ETHHDPrivateKey(
             hdPrivateKey: derivedKey.privateKey!,
             chainCode: derivedKey.chainCode,
             depth: derivedKey.depth,

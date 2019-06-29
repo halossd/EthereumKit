@@ -1,4 +1,4 @@
-public enum WordList {
+public enum ETHWordList {
     case english
     case japanese
     

@@ -5,15 +5,15 @@ class AddressTests: XCTestCase {
     func testAddressInitialization() {
         let string = "0x88b44BC83add758A3642130619D61682282850Df"
         let hex = "88b44bc83add758a3642130619d61682282850df"
-        XCTAssert(Address(data: Data(hex: hex)).string == string)
-        XCTAssert(Address(string: string).data.toHexString() == hex)
+        XCTAssert(ETHAddress(data: Data(hex: hex)).string == string)
+        XCTAssert(ETHAddress(string: string).data.toHexString() == hex)
     }
     
     func testAddressGeneration() {
         let entropy = Data(hex: "000102030405060708090a0b0c0d0e0f")
-        let mnemonic = Mnemonic.create(entropy: entropy)
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let wallet = HDWallet(seed: seed, network: .mainnet)
+        let mnemonic = ETHMnemonic.create(entropy: entropy)
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let wallet = ETHHDWallet(seed: seed, network: .mainnet)
         
         let firstAddress = try! wallet.address(at: 0)
         XCTAssertEqual(firstAddress, "0x83f1caAdaBeEC2945b73087F803d404F054Cc2B7")

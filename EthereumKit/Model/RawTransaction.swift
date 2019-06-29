@@ -5,7 +5,7 @@ public struct RawTransaction {
     public let value: Wei
     
     /// Address to send ether to
-    public let to: Address
+    public let to: ETHAddress
     
     /// Gas price for this transaction, unit is in Wei
     /// you need to convert it if it is specified in GWei
@@ -26,7 +26,7 @@ public struct RawTransaction {
 extension RawTransaction {
     public init(value: Wei, to: String, gasPrice: Int, gasLimit: Int, nonce: Int) {
         self.value = value
-        self.to = Address(string: to)
+        self.to = ETHAddress(string: to)
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
         self.nonce = nonce
@@ -35,7 +35,7 @@ extension RawTransaction {
     
     public init(wei: String, to: String, gasPrice: Int, gasLimit: Int, nonce: Int, data: Data = Data()) {
         self.value = Wei(wei)!
-        self.to = Address(string: to)
+        self.to = ETHAddress(string: to)
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
         self.nonce = nonce
@@ -56,7 +56,7 @@ extension RawTransaction: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         value = try container.decode(Wei.self, forKey: .value)
-        to = try container.decode(Address.self, forKey: .to)
+        to = try container.decode(ETHAddress.self, forKey: .to)
         gasPrice = try container.decode(Int.self, forKey: .gasPrice)
         gasLimit = try container.decode(Int.self, forKey: .gasLimit)
         nonce = try container.decode(Int.self, forKey: .nonce)

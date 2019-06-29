@@ -3,9 +3,9 @@ import XCTest
 
 final class BIP32Tests: XCTestCase {
     
-    private var hdPrivateKey: HDPrivateKey = {
+    private var hdPrivateKey: ETHHDPrivateKey = {
         let seed = Data(hex: "000102030405060708090a0b0c0d0e0f")
-        return HDPrivateKey(seed: seed, network: .mainnet)
+        return ETHHDPrivateKey(seed: seed, network: .mainnet)
     }()
     
     /// Test vectors in https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki

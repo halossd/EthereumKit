@@ -8,7 +8,7 @@ final class MnemonicTests: XCTestCase {
             .split(separator: " ")
             .map(String.init)
         
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
         XCTAssertEqual(
             seed.toHexString(),
             "3779b041fab425e9c0fd55846b2a03e9a388fb12784067bd8ebdb464c2574a05bcc7a8eb54d7b2a2c8420ff60f630722ea5132d28605dbc996c8ca7d7a8311c0"
@@ -20,7 +20,7 @@ final class MnemonicTests: XCTestCase {
             .split(separator: " ")
             .map(String.init)
         
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
         XCTAssertEqual(
             seed.toHexString(),
             "d90a7a0659f50d81f7a3b0faf4cba84dc8a286e5b84f4f7b81ca118b024c25094f5bc52482bf25a95170d84c41ccbeb9e5d51c6905a87168200c672fcd8880b8"
@@ -32,7 +32,7 @@ final class MnemonicTests: XCTestCase {
             .split(separator: " ")
             .map(String.init)
         
-        XCTAssertThrowsError(try Mnemonic.createSeed(mnemonic: mnemonic))
+        XCTAssertThrowsError(try ETHMnemonic.createSeed(mnemonic: mnemonic))
     }
     
     func testMnemonicWordsWhenInvalid2() {
@@ -40,7 +40,7 @@ final class MnemonicTests: XCTestCase {
             .split(separator: " ")
             .map(String.init)
         
-        XCTAssertThrowsError(try Mnemonic.createSeed(mnemonic: mnemonic))
+        XCTAssertThrowsError(try ETHMnemonic.createSeed(mnemonic: mnemonic))
     }
     
     func testMnemonicWordsWhenInvalid3() {
@@ -48,6 +48,6 @@ final class MnemonicTests: XCTestCase {
             .split(separator: " ")
             .map(String.init)
         
-        XCTAssertThrowsError(try Mnemonic.createSeed(mnemonic: mnemonic))
+        XCTAssertThrowsError(try ETHMnemonic.createSeed(mnemonic: mnemonic))
     }
 }

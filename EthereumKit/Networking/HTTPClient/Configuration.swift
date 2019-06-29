@@ -2,7 +2,7 @@
 public struct Configuration {
     
     /// represents which network to use
-    public let network: Network
+    public let network: ETHNetwork
     
     /// represents an endpoint of ethereum node to connect to
     public let nodeEndpoint: String
@@ -13,7 +13,7 @@ public struct Configuration {
     /// represents whether to print debug logs in console
     public let debugPrints: Bool
     
-    public init(network: Network, nodeEndpoint: String, etherscanAPIKey: String, debugPrints: Bool) {
+    public init(network: ETHNetwork, nodeEndpoint: String, etherscanAPIKey: String, debugPrints: Bool) {
         self.network = network
         self.nodeEndpoint = nodeEndpoint
         self.etherscanAPIKey = etherscanAPIKey

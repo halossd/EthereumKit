@@ -4,14 +4,14 @@ import XCTest
 class EthereumKitTests: XCTestCase {
     func testMenmonic() {
         let entropy = Data(hex: "000102030405060708090a0b0c0d0e0f")
-        let mnemonic = Mnemonic.create(entropy: entropy)
+        let mnemonic = ETHMnemonic.create(entropy: entropy)
         XCTAssertEqual(
             mnemonic.joined(separator: " "),
             "abandon amount liar amount expire adjust cage candy arch gather drum buyer"
         )
         
         let entropy2 = Data(hex: "a26a4821e36c7f7dccaa5484c080cefa")
-        let mnemonic2 = Mnemonic.create(entropy: entropy2)
+        let mnemonic2 = ETHMnemonic.create(entropy: entropy2)
         XCTAssertEqual(
             mnemonic2.joined(separator: " "),
             "pen false anchor short side same crawl enhance luggage advice crisp village"
@@ -20,16 +20,16 @@ class EthereumKitTests: XCTestCase {
     
     func testSeedGeneration() {
         let entropy = Data(hex: "000102030405060708090a0b0c0d0e0f")
-        let mnemonic = Mnemonic.create(entropy: entropy)
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
+        let mnemonic = ETHMnemonic.create(entropy: entropy)
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
         XCTAssertEqual(
             seed.toHexString(),
             "3779b041fab425e9c0fd55846b2a03e9a388fb12784067bd8ebdb464c2574a05bcc7a8eb54d7b2a2c8420ff60f630722ea5132d28605dbc996c8ca7d7a8311c0"
         )
         
         let entropy2 = Data(hex: "a26a4821e36c7f7dccaa5484c080cefa")
-        let mnemonic2 = Mnemonic.create(entropy: entropy2)
-        let seed2 = try! Mnemonic.createSeed(mnemonic: mnemonic2)
+        let mnemonic2 = ETHMnemonic.create(entropy: entropy2)
+        let seed2 = try! ETHMnemonic.createSeed(mnemonic: mnemonic2)
         XCTAssertEqual(
             seed2.toHexString(),
             "2bb2ea75d2891584559506b2429426722bfa81958c824affb84b37def230fe94a7da1701d550fef6a216176de786150d0a4f2b7b3770139582c1c01a6958d91a"
@@ -38,9 +38,9 @@ class EthereumKitTests: XCTestCase {
     
     func testChildKeyDerivation() {
         let entropy = Data(hex: "000102030405060708090a0b0c0d0e0f")
-        let mnemonic = Mnemonic.create(entropy: entropy)
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
-        let privateKey = HDPrivateKey(seed: seed, network: .mainnet)
+        let mnemonic = ETHMnemonic.create(entropy: entropy)
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
+        let privateKey = ETHHDPrivateKey(seed: seed, network: .mainnet)
         
         // BIP44 key derivation
         // m/44'

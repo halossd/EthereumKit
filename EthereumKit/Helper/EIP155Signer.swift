@@ -8,7 +8,7 @@ public struct EIP155Signer {
         self.chainID = chainID
     }
     
-    public func sign(_ rawTransaction: RawTransaction, privateKey: PrivateKey) throws -> Data {
+    public func sign(_ rawTransaction: RawTransaction, privateKey: ETHPrivateKey) throws -> Data {
         let transactionHash = try hash(rawTransaction: rawTransaction)
         let signiture = try privateKey.sign(hash: transactionHash)
         
@@ -25,7 +25,7 @@ public struct EIP155Signer {
     }
     
     public func hash(rawTransaction: RawTransaction) throws -> Data {
-        return Crypto.hashSHA3_256(try encode(rawTransaction: rawTransaction))
+        return ETHCrypto.hashSHA3_256(try encode(rawTransaction: rawTransaction))
     }
     
     public func encode(rawTransaction: RawTransaction) throws -> Data {

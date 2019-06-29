@@ -16,17 +16,17 @@ class ViewController: UIViewController {
         
         // It generates an array of random mnemonic words. Use it for back-ups.
         // You can specify which language to use for the sentence by second parameter.
-        let mnemonic = Mnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
+        let mnemonic = ETHMnemonic.create(entropy: Data(hex: "000102030405060708090a0b0c0d0e0f"))
         
         // Then generate seed data from the mnemonic sentence.
         // You can set password for more secure seed data.
-        let seed = try! Mnemonic.createSeed(mnemonic: mnemonic)
+        let seed = try! ETHMnemonic.createSeed(mnemonic: mnemonic)
         
         // Create wallet by passing seed data and which network you want to connect.
         // for network, EthereumKit currently supports mainnet and ropsten.
-        let wallet: Wallet
+        let wallet: ETHWallet
         do {
-            wallet = try Wallet(seed: seed, network: .ropsten, debugPrints: true)
+            wallet = try ETHWallet(seed: seed, network: .ropsten, debugPrints: true)
         } catch let error {
             fatalError("Error: \(error.localizedDescription)")
         }
